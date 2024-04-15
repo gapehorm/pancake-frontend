@@ -59,10 +59,11 @@ describe.concurrent(
       expect(farm.token.symbol).not.toEqual(native.symbol)
     })
 
-    // The first pid using the new factory
+    // Adjustments for AVAX
+
     // BSC
     const START_PID = 2
-    const FACTORY_ADDRESS = '0xca143ce32fe78f1f7019d7d551a6402fc5350c73'
+    const FACTORY_ADDRESS = 'avaxfactoryaddyhere'
     const newFarmsToTest = farmsToTest.filter((farmSet) => farmSet[0] >= START_PID)
 
     it.each(newFarmsToTest)('farm %d is using correct factory address', async (pid, farm) => {
@@ -73,7 +74,7 @@ describe.concurrent(
 
     // ETH
     const ETH_START_PID = 124
-    const ETH_FACTORY_ADDRESS = '0x1097053fd2ea711dad45caccc45eff7548fcb362'
+    const ETH_FACTORY_ADDRESS = 'ethfactoryaddyhere'
     const ethNewFarmsToTest = farms1ToTest.filter((farmSet) => farmSet[0] >= ETH_START_PID)
 
     it.each(ethNewFarmsToTest)('farm %d is using correct factory address', async (pid, farm) => {
