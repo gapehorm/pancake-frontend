@@ -1,7 +1,7 @@
-import { ChainId } from '@pancakeswap/chains'
-import { Address, Hash } from 'viem'
+import { ChainId } from '@pancakeswap/chains';
+import { Address, Hash } from 'viem';
 
-const FACTORY_ADDRESS = '0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865'
+const FACTORY_ADDRESS = '0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865';
 
 /**
  * To compute Pool address use DEPLOYER_ADDRESSES instead
@@ -27,9 +27,10 @@ export const FACTORY_ADDRESSES = {
   [ChainId.SEPOLIA]: FACTORY_ADDRESS,
   [ChainId.BASE_SEPOLIA]: FACTORY_ADDRESS,
   [ChainId.ARBITRUM_SEPOLIA]: FACTORY_ADDRESS,
-} as const satisfies Record<ChainId, Address>
+  [ChainId.AVALANCHE]: FACTORY_ADDRESS, // Add Avalanche Factory Address here
+} as const;
 
-const DEPLOYER_ADDRESS = '0x41ff9AA7e16B8B1a8a8dc4f0eFacd93D02d071c9'
+const DEPLOYER_ADDRESS = '0x41ff9AA7e16B8B1a8a8dc4f0eFacd93D02d071c9';
 
 export const DEPLOYER_ADDRESSES = {
   [ChainId.ETHEREUM]: DEPLOYER_ADDRESS,
@@ -50,13 +51,14 @@ export const DEPLOYER_ADDRESSES = {
   [ChainId.BASE_TESTNET]: '0x5A6919Dfd2C761788608b0D1bd1239961ADCB08B',
   [ChainId.SCROLL_SEPOLIA]: '0xC259d1D3476558630d83b0b60c105ae958382792',
   [ChainId.SEPOLIA]: DEPLOYER_ADDRESS,
-  [ChainId.BASE_SEPOLIA]: DEPLOYER_ADDRESS,
   [ChainId.ARBITRUM_SEPOLIA]: DEPLOYER_ADDRESS,
-} as const satisfies Record<ChainId, Address>
+  [ChainId.BASE_SEPOLIA]: DEPLOYER_ADDRESS,
+  [ChainId.AVALANCHE]: DEPLOYER_ADDRESS, // Add Avalanche Deployer Address here
+} as const;
 
-export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
+export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000';
 
-const POOL_INIT_CODE_HASH = '0x6ce8eb472fa82df5469c6ab6d485f17c3ad13c8cd7af59b3d4a8026c5ce0f7e2'
+const POOL_INIT_CODE_HASH = '0x6ce8eb472fa82df5469c6ab6d485f17c3ad13c8cd7af59b3d4a8026c5ce0f7e2';
 
 export const POOL_INIT_CODE_HASHES = {
   [ChainId.ETHEREUM]: POOL_INIT_CODE_HASH,
@@ -78,10 +80,10 @@ export const POOL_INIT_CODE_HASHES = {
   [ChainId.SCROLL_SEPOLIA]: POOL_INIT_CODE_HASH,
   [ChainId.SEPOLIA]: POOL_INIT_CODE_HASH,
   [ChainId.ARBITRUM_SEPOLIA]: POOL_INIT_CODE_HASH,
-  [ChainId.BASE_SEPOLIA]: POOL_INIT_CODE_HASH,
-} as const satisfies Record<ChainId, Hash>
+  [ChainId.AVALANCHE]: POOL_INIT_CODE_HASH, // Add Avalanche Pool Init Code Hash here
+} as const;
 
-const NFT_POSITION_MANAGER_ADDRESS = '0x46A15B0b27311cedF172AB29E4f4766fbE7F4364'
+const NFT_POSITION_MANAGER_ADDRESS = '0x46A15B0b27311cedF172AB29E4f4766fbE7F4364';
 
 export const NFT_POSITION_MANAGER_ADDRESSES = {
   [ChainId.ETHEREUM]: NFT_POSITION_MANAGER_ADDRESS,
@@ -104,7 +106,8 @@ export const NFT_POSITION_MANAGER_ADDRESSES = {
   [ChainId.SEPOLIA]: NFT_POSITION_MANAGER_ADDRESS,
   [ChainId.ARBITRUM_SEPOLIA]: NFT_POSITION_MANAGER_ADDRESS,
   [ChainId.BASE_SEPOLIA]: NFT_POSITION_MANAGER_ADDRESS,
-} as const satisfies Record<ChainId, Address>
+  [ChainId.AVALANCHE]: NFT_POSITION_MANAGER_ADDRESS, // Add Avalanche NFT Position Manager Address here
+} as const;
 
 /**
  * The default factory enabled fee amounts, denominated in hundredths of bips.
@@ -124,4 +127,4 @@ export const TICK_SPACINGS: { [amount in FeeAmount]: number } = {
   [FeeAmount.LOW]: 10,
   [FeeAmount.MEDIUM]: 50,
   [FeeAmount.HIGH]: 200,
-}
+};
