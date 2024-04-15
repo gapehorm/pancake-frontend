@@ -49,7 +49,8 @@ export const SMART_ROUTER_ADDRESSES = {
   [ChainId.SEPOLIA]: '0x678Aa4bF4E210cf2166753e054d5b7c31cc7fa86',
   [ChainId.ARBITRUM_SEPOLIA]: '0x678Aa4bF4E210cf2166753e054d5b7c31cc7fa86',
   [ChainId.BASE_SEPOLIA]: '0x678Aa4bF4E210cf2166753e054d5b7c31cc7fa86',
-} as const satisfies Record<ChainId, string>
+  [ChainId.AVALANCHE]: '0x0000000000000000000000000000000000000000', // Placeholder for Avalanche
+};
 
 export const V2_ROUTER_ADDRESS: ChainMap<string> = {
   [ChainId.ETHEREUM]: '0xEfF92A263d31888d860bD50809A8D171709b7b1c',
@@ -72,8 +73,8 @@ export const V2_ROUTER_ADDRESS: ChainMap<string> = {
   [ChainId.SEPOLIA]: '0x8cFe327CEc66d1C090Dd72bd0FF11d690C33a2Eb',
   [ChainId.ARBITRUM_SEPOLIA]: '0x8cFe327CEc66d1C090Dd72bd0FF11d690C33a2Eb',
   [ChainId.BASE_SEPOLIA]: '0x8cFe327CEc66d1C090Dd72bd0FF11d690C33a2Eb',
-}
-
+  [ChainId.AVALANCHE]: '0x0000000000000000000000000000000000000000', // Placeholder for Avalanche
+};
 export const STABLE_SWAP_INFO_ADDRESS: ChainMap<string> = {
   [ChainId.ETHEREUM]: '',
   [ChainId.GOERLI]: '',
@@ -95,9 +96,9 @@ export const STABLE_SWAP_INFO_ADDRESS: ChainMap<string> = {
   [ChainId.SEPOLIA]: '',
   [ChainId.ARBITRUM_SEPOLIA]: '',
   [ChainId.BASE_SEPOLIA]: '',
-}
+  [ChainId.AVALANCHE]: '0x0000000000000000000000000000000000000000', // Placeholder for Avalanche
+};
 
-// used to construct intermediary pairs for trading
 export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.ETHEREUM]: [WNATIVE[ChainId.ETHEREUM], USDC[ChainId.ETHEREUM], USDT[ChainId.ETHEREUM], WBTC_ETH],
   [ChainId.GOERLI]: [WNATIVE[ChainId.GOERLI], USDC[ChainId.GOERLI], BUSD[ChainId.GOERLI]],
@@ -127,9 +128,12 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.SEPOLIA]: [sepoliaTokens.usdc, sepoliaTokens.weth],
   [ChainId.ARBITRUM_SEPOLIA]: [arbSepoliaTokens.usdc, arbSepoliaTokens.weth],
   [ChainId.BASE_SEPOLIA]: [baseSepoliaTokens.usdc, baseSepoliaTokens.weth],
+  [ChainId.AVALANCHE]: ['PLACEHOLDER_TOKEN_1', 'PLACEHOLDER_TOKEN_2'], // Placeholder for Avalanche
+};
+
 }
 
-const czusd = new ERC20Token(ChainId.BSC, '0xE68b79e51bf826534Ff37AA9CeE71a3842ee9c70', 18, 'CZUSD', 'CZUSD')
+const czusd = new ERC20Token(ChainId.AVALANCHE, '0x', 18, 'CZUSD', 'CZUSD')
 
 /**
  * Additional bases for specific tokens
@@ -138,29 +142,29 @@ const czusd = new ERC20Token(ChainId.BSC, '0xE68b79e51bf826534Ff37AA9CeE71a3842e
 export const ADDITIONAL_BASES: {
   [chainId in ChainId]?: { [tokenAddress: string]: Token[] }
 } = {
-  [ChainId.BSC]: {
+  [ChainId.AVALANCHE]: {
     // SNFTS-SFUND
-    [bscTokens.snfts.address]: [bscTokens.sfund],
+    [avalancheTokens.snfts.address]: [avalancheTokens.sfund],
 
-    [bscTokens.ankr.address]: [bscTokens.ankrbnb],
-    [bscTokens.ankrbnb.address]: [bscTokens.ankrETH, bscTokens.ankr],
-    [bscTokens.ankrETH.address]: [bscTokens.ankrbnb],
+    [avalancheTokens.ankr.address]: [avalancheTokens.ankrbnb],
+    [avalancheTokens.ankrbnb.address]: [avalancheTokens.ankrETH, avalancheTokens.ankr],
+    [avalancheTokens.ankrETH.address]: [avalancheTokens.ankrbnb],
 
     // REVV - EDU
-    [bscTokens.revv.address]: [bscTokens.edu],
-    [bscTokens.edu.address]: [bscTokens.revv],
+    [avalancheTokens.revv.address]: [avalancheTokens.edu],
+    [avalancheTokens.edu.address]: [avalancheTokens.revv],
     // unshETH - USH
-    [bscTokens.unshETH.address]: [bscTokens.ush],
-    [bscTokens.ush.address]: [bscTokens.unshETH],
+    [avalancheTokens.unshETH.address]: [avalancheTokens.ush],
+    [avalancheTokens.ush.address]: [avalancheTokens.unshETH],
 
-    [bscTokens.tusd.address]: [bscTokens.usdd],
-    [bscTokens.usdd.address]: [bscTokens.tusd],
+    [avalancheTokens.tusd.address]: [avalancheTokens.usdd],
+    [avalancheTokens.usdd.address]: [avalancheTokens.tusd],
 
-    [bscTokens.mpendle.address]: [bscTokens.pendle],
-    [bscTokens.pendle.address]: [bscTokens.mpendle],
+    [avalancheTokens.mpendle.address]: [avalancheTokens.pendle],
+    [avalancheTokens.pendle.address]: [avalancheTokens.mpendle],
 
-    [bscTokens.mdlp.address]: [bscTokens.dlp],
-    [bscTokens.dlp.address]: [bscTokens.mdlp],
+    [avalancheTokens.mdlp.address]: [avalancheTokens.dlp],
+    [avalancheTokens.dlp.address]: [avalancheTokens.mdlp],
 
     // pancakeswap/pancake-frontend#7909
     // LSDT
@@ -197,7 +201,8 @@ export const ADDITIONAL_BASES: {
 export const CUSTOM_BASES: {
   [chainId in ChainId]?: { [tokenAddress: string]: Token[] }
 } = {
-  [ChainId.BSC]: {
-    [bscTokens.axlusdc.address]: [bscTokens.usdt],
+  [ChainId.AVALANCHE]: {
+    [avalancheTokens.axlusdc.address]: [avalancheTokens.usdt],
   },
 }
+
