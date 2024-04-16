@@ -23,7 +23,6 @@ import { useNonBscFarmPendingTransaction, useTransactionAdder } from 'state/tran
 import { styled } from 'styled-components'
 import { useIsBloctoETH } from 'views/Farms'
 import { useBCakeBoostLimitAndLockInfo } from 'views/Farms/components/YieldBooster/hooks/bCakeV3/useBCakeV3Info'
-import { SendTransactionResult } from 'wagmi/actions'
 import { useFirstTimeCrossFarming } from '../../hooks/useFirstTimeCrossFarming'
 import { YieldBoosterStateContext } from '../YieldBooster/components/ProxyFarmContainer'
 import { YieldBoosterState } from '../YieldBooster/hooks/useYieldBoosterState'
@@ -32,10 +31,10 @@ interface FarmCardActionsProps extends FarmWithStakedValue {
   lpLabel?: string
   addLiquidityUrl?: string
   displayApr?: string
-  onStake: (value: string) => Promise<SendTransactionResult>
-  onUnstake: (value: string) => Promise<SendTransactionResult>
+  onStake: <SendTransactionResult>(value: string) => Promise<SendTransactionResult>
+  onUnstake: <SendTransactionResult>(value: string) => Promise<SendTransactionResult>
   onDone: () => void
-  onApprove: () => Promise<SendTransactionResult>
+  onApprove: <SendTransactionResult>() => Promise<SendTransactionResult>
   isApproved: boolean
 }
 
@@ -262,7 +261,7 @@ const StakeAction: React.FC<React.PropsWithChildren<FarmCardActionsProps>> = ({
       cakePrice={cakePrice}
       showActiveBooster={boosterState === YieldBoosterState.ACTIVE}
       bCakeMultiplier={bCakeMultiplier}
-      showCrossChainFarmWarning={chainId !== ChainId.BSC && chainId !== ChainId.BSC_TESTNET}
+      showCrossChainFarmWarning={chainId !== ChainId.BSC && chainId !== ChainId.BSC_TESTNET && !bCakeWrapperAddress}
       crossChainWarningText={crossChainWarningText}
       decimals={18}
       allowance={allowance}
@@ -270,7 +269,7 @@ const StakeAction: React.FC<React.PropsWithChildren<FarmCardActionsProps>> = ({
       lpRewardsApr={lpRewardsApr}
       onConfirm={handleStake}
       handleApprove={handleApprove}
-      isBooster={isBoosterAndRewardInRange}
+      isBooster={isBoosterAndRewardInRange && chainId === ChainId.BSC}
       boosterMultiplier={
         isBoosterAndRewardInRange
           ? bCakeUserData?.boosterMultiplier === 0 || bCakeUserData?.stakedBalance.eq(0) || !locked
@@ -292,7 +291,7 @@ const StakeAction: React.FC<React.PropsWithChildren<FarmCardActionsProps>> = ({
       onConfirm={handleUnstake}
       lpPrice={lpTokenPrice}
       tokenName={lpSymbol}
-      showCrossChainFarmWarning={chainId !== ChainId.BSC && chainId !== ChainId.BSC_TESTNET}
+      showCrossChainFarmWarning={chainId !== ChainId.BSC && chainId !== ChainId.BSC_TESTNET && !bCakeWrapperAddress}
       decimals={18}
     />,
   )

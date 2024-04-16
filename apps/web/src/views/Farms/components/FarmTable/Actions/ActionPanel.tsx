@@ -1,3 +1,4 @@
+import { ChainId } from '@pancakeswap/chains'
 import { useTranslation } from '@pancakeswap/localization'
 import {
   Box,
@@ -373,7 +374,6 @@ export const ActionPanelV2: React.FunctionComponent<React.PropsWithChildren<Acti
     details?.bCakeWrapperAddress,
   )
   const { onUpdate } = useUpdateBCakeFarms(details?.bCakeWrapperAddress ?? '0x', details?.pid)
-
   return (
     <>
       <AddLiquidityV3Modal
@@ -414,7 +414,11 @@ export const ActionPanelV2: React.FunctionComponent<React.PropsWithChildren<Acti
                         : multiplier.farmCakePerSecond
                     }
                     totalMultipliers={multiplier.totalMultipliers}
-                    isBooster={Boolean(details?.bCakeWrapperAddress) && details?.bCakePublicData?.isRewardInRange}
+                    isBooster={
+                      chainId === ChainId.BSC &&
+                      Boolean(details?.bCakeWrapperAddress) &&
+                      details?.bCakePublicData?.isRewardInRange
+                    }
                     boosterMultiplier={
                       details?.bCakeWrapperAddress
                         ? details?.bCakeUserData?.boosterMultiplier === 0 ||
@@ -426,10 +430,12 @@ export const ActionPanelV2: React.FunctionComponent<React.PropsWithChildren<Acti
                     }
                   />
                 </ValueWrapper>
-                <ValueWrapper>
-                  <Text>{t('Multiplier')}</Text>
-                  <Multiplier {...multiplier} />
-                </ValueWrapper>
+                {!details?.bCakeWrapperAddress && (
+                  <ValueWrapper>
+                    <Text>{t('Multiplier')}</Text>
+                    <Multiplier {...multiplier} />
+                  </ValueWrapper>
+                )}
                 <ValueWrapper>
                   <Text>{t('Staked Liquidity')}</Text>
                   <Liquidity {...liquidity} />
@@ -521,7 +527,7 @@ export const ActionPanelV2: React.FunctionComponent<React.PropsWithChildren<Acti
                             </HarvestActionContainer>
                           </>
                         )}
-                        {isRewardInRange && (
+                        {isRewardInRange && chainId === ChainId.BSC && (
                           <Box
                             style={{
                               height: isMobile ? 2 : 70,
@@ -530,7 +536,7 @@ export const ActionPanelV2: React.FunctionComponent<React.PropsWithChildren<Acti
                             }}
                           />
                         )}
-                        {isRewardInRange && (
+                        {isRewardInRange && chainId === ChainId.BSC && (
                           <Flex
                             flexGrow={1}
                             maxWidth={isMobile ? 'auto' : hasStakedInBCake ? '27%' : '50%'}
