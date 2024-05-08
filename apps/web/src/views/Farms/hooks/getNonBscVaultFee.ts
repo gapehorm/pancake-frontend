@@ -13,6 +13,7 @@ export enum MessageTypes {
 enum Chains {
   EVM = 0,
   BSC = 1,
+  AVALANCHE = 2,
 }
 
 interface CalculateTotalFeeProps {
